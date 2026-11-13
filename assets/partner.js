@@ -100,6 +100,8 @@ create policy a_public on public.partner_app for select
   }
 
   async function boot() {
+    // 先消费 Hub 回跳带来的 #access_token，再取 token
+    try { if (typeof sbResolveAuth === 'function') await sbResolveAuth(true); } catch (e) {}
     token = await getToken();
     const hubUser = (typeof sbGetUser === 'function') ? sbGetUser() : null;
     renderAuth(hubUser);
