@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>R6T5 合作伙伴控制台</title>
+<meta name="description" content="绑定 Supabase、管理应用、获取可嵌入的登录组件。">
+<link rel="stylesheet" href="assets/partner.css">
+<script src="sbauth.js?v=20261113"></script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="brand" href="index.html"><span class="dot"></span> partner<span class="thin">.r6t5</span></a>
+    <div class="bar-right">
+      <span class="tag">合作伙伴控制台</span>
+      <div class="auth-wrap">
+        <button class="auth-btn" id="authBtn" hidden>
+          <span class="avatar" id="authAvatar">·</span>
+          <span id="authLabel">登录</span>
+        </button>
+        <div class="auth-menu" id="authMenu" hidden>
+          <div class="auth-mail" id="authMail"></div>
+          <button type="button" id="authLogout">退出登录</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap main">
+
+  <section class="hero">
+    <h1>你的应用，一套账号</h1>
+    <p>用 R6T5 Hub 账号登录后，可以绑定自己的 Supabase、登记应用、获取嵌入用的登录组件。</p>
+    <div class="status" id="status">正在校验登录状态…</div>
+  </section>
+
+  <section class="grid">
+
+    <div class="card" id="bindCard">
+      <div class="card-head"><h2>绑定 Supabase</h2><span class="hint">你自己项目的 URL 与 anon key</span></div>
+      <label>Project URL</label>
+      <input id="sbUrl" placeholder="https://xxxx.supabase.co" autocomplete="off" spellcheck="false">
+      <label>Anon key</label>
+      <textarea id="sbAnon" rows="3" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9…" spellcheck="false"></textarea>
+      <div class="row">
+        <button class="btn primary" id="saveBind">保存绑定</button>
+        <button class="btn ghost" id="clearBind">清除</button>
+      </div>
+      <div class="msg" id="bindMsg"></div>
+      <p class="note">anon key 只用于你站点自己的前端；service_role key 千万不要填。</p>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>应用登记</h2><span class="hint" id="appCount">0 个</span></div>
+      <div class="appform">
+        <input id="appEmoji" class="emoji" maxlength="2" value="📄" aria-label="图标">
+        <input id="appName" placeholder="应用名称" autocomplete="off">
+        <input id="appUrl" placeholder="官网链接 https://…" autocomplete="off">
+        <button class="btn primary" id="addApp">添加</button>
+      </div>
+      <div class="emojis" id="emojiRow"></div>
+      <div class="applist" id="appList"><p class="empty">登录后可以登记应用。</p></div>
+      <div class="msg" id="appMsg"></div>
+    </div>
+
+  </section>
+
+  <section class="card wide">
+    <div class="card-head">
+      <h2>嵌入登录组件</h2>
+      <span class="hint">复制到你的站点即可，账号仍由 R6T5 Hub 统一处理</span>
+    </div>
+    <div class="tabs">
+      <button class="on" data-tab="html">HTML</button>
+      <button data-tab="js">接入说明</button>
+      <button id="previewBtn" class="right">预览组件</button>
+      <button id="copyCode">复制源码</button>
+    </div>
+    <pre class="code" id="codeBox"></pre>
+  </section>
+
+  <section class="card wide">
+    <div class="card-head"><h2>数据库准备</h2><span class="hint">一次性执行，建表 + RLS</span></div>
+    <p class="note">在 R6T5 Hub 的 Supabase SQL Editor 里执行下面这段，合作方数据才会落到你的库。</p>
+    <pre class="code" id="sqlBox"></pre>
+    <button class="btn ghost" id="copySql">复制 SQL</button>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">R6T5 合作伙伴控制台 · 账号由 <a href="https://myacc.r6t5.dpdns.org" target="_blank" rel="noopener">R6T5 Hub</a> 统一提供</div>
+</footer>
+
+<script src="assets/partner.js"></script>
+</body>
+</html>
