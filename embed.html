@@ -138,9 +138,11 @@ input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--a
   $('go').onclick = submit;
   $('pw').addEventListener('keydown', function (e) { if (e.key === 'Enter') submit(); });
   $('hub').onclick = function () {
-    var host = document.referrer || (window.parent === window ? location.href : '');
-    var url = 'https://myacc.r6t5.dpdns.org/?app=open-platform&country=cf'
-      + (host && /^https:/.test(host) ? '&return=' + encodeURIComponent(host) : '');
+    // 优先 ?host=，其次 referrer；回跳地址必须是 *.r6t5.dpdns.org，否则回伙伴站
+    var host = new URLSearchParams(location.search).get('host') || document.referrer || '';
+    var ret = /^https:\/\/[a-z0-9-]+\.r6t5\.dpdns\.org/i.test(host)
+      ? host : 'https://partner.r6t5.dpdns.org';
+    var url = 'https://myacc.r6t5.dpdns.org/?app=open-platform&country=cf&return=' + encodeURIComponent(ret);
     window.open(url, '_blank', 'noopener');
   };
   boot();
